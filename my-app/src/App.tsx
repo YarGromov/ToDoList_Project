@@ -6,14 +6,15 @@ function App() {
 
     let tasks1: Array<TasksPropsType> = [
         {id: 1, title: 'HTML&CSS', isDone: true},
-        {id: 1, title: 'JS', isDone: true},
-        {id: 1, title: 'React', isDone: false}
+        {id: 2, title: 'JS', isDone: true},
+        {id: 3, title: 'ReactJS', isDone: false},
+        {id: 4, title: 'Redux', isDone: false}
     ]
 
     let tasks2: Array<TasksPropsType>  = [
-        {id: 1, title: 'Terminator', isDone: true},
-        {id: 1, title: 'XXX', isDone: false},
-        {id: 1, title: 'Iron Man', isDone: true}
+        {id: 1, title: 'Hello world', isDone: true},
+        {id: 2, title: 'Im happy', isDone: false},
+        {id: 3, title: 'Yo', isDone: true}
     ]
 
 
@@ -21,7 +22,7 @@ function App() {
   return (
     <div className="App">
      <TodoList title='What to learn' tasks={tasks1}/>
-     <TodoList title='What to read' tasks={tasks2}/>
+     <TodoList title='Songs' tasks={tasks2}/>
     </div>
   );
 }
