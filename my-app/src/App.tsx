@@ -11,9 +11,7 @@ function App() {
         {id: 4, title: 'Redux', isDone: false}
     ]
 
-    let arr = useState(initTasks)
-    let tasks = arr[0]
-    let setTasks = arr[1]
+    let [tasks, setTasks] = useState(initTasks)
 
 
     const removeTask = (id: number) => {
