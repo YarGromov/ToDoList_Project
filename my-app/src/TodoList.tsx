@@ -19,7 +19,7 @@ export const TodoList = (props: TodoListPropsType) => {
             <h3>{props.title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <button onClick={()=>alert('LoL')}>+</button>
             </div>
             <ul>
                 {
