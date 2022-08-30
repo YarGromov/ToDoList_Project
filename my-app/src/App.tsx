@@ -99,6 +99,14 @@ function App() {
         setTasks({...tasks});
     }
 
+    function changeTodolistTitle(id: string, newTitle: string){
+      const todolist = todolists.find(tl=>tl.id === id);
+      if(todolist) {
+          todolist.title = newTitle;
+          setTodolists([...todolists]);
+      }
+    }
+
     function addTodolist(title: string){
         let todolist: TodolistType = {
             id: v1(),
@@ -139,6 +147,8 @@ function App() {
                         changeTaskTitle={changeTaskTitle}
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
+                        changeTodolistTitle={changeTodolistTitle}
+
                     />
                 })
             }
