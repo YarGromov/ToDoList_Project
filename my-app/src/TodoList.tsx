@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
-import {Button, IconButton} from "@mui/material";
+import {Button, Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
 export type TaskType = {
@@ -48,7 +48,7 @@ export function Todolist(props: PropsType) {
             </IconButton>
         </h3>
         <AddItemForm addItem={addTask}/>
-        <ul>
+        <div>
             {
                 props.tasks.map(t => {
                     const onClickHandler = () => props.removeTask(t.id, props.id)
@@ -61,16 +61,16 @@ export function Todolist(props: PropsType) {
                     }
 
 
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <input type="checkbox" onChange={onChangeHandler} checked={t.isDone}/>
+                    return <div key={t.id} className={t.isDone ? "is-done" : ""}>
+                        <Checkbox  onChange={onChangeHandler} checked={t.isDone} color="secondary"/>
                         <EditableSpan value={t.title} onChange={onTitleChangeHandler} />
                         <IconButton  onClick={onClickHandler}>
                             <Delete />
                         </IconButton>
-                    </li>
+                    </div>
                 })
             }
-        </ul>
+        </div>
         <div>
             <Button color={'inherit'} variant={props.filter === 'all' ? "contained" : "text"}
                     onClick={onAllClickHandler}>All
