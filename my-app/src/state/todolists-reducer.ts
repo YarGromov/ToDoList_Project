@@ -13,17 +13,17 @@ export type RemoveTodolistActionType = {
 
 export type AddTodolistActionType = {
     type: 'ADD-TODOLIST'
-    id: string
+    title: string
 }
 
 export type ChangeTodolistTitleActionType = {
-    type: 'CHANGE-TODOLIST-FILTER'
+    type: 'CHANGE-TODOLIST-TITLE'
     id: string
     title: string
 }
 
 export type ChangeTodolistFilterActionType = {
-    type: 'CHANGE-TODOLIST-TITLE'
+    type: 'CHANGE-TODOLIST-FILTER'
     id: string
     filter: FilterValuesType
 }
