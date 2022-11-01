@@ -35,10 +35,10 @@ function App() {
         setFilter(value);
     }
 
-    function addTask(){
-        let task = { id: v1(), title: "New TAsk", isDone: false };
-        let newTask = [task, ...tasks];
-        setTasks(newTask)
+    function addTask(title: string){
+        let task = { id: v1(), title: title, isDone: false };
+        let newTasks = [task, ...tasks];
+        setTasks(newTasks);
     }
 
     return (
