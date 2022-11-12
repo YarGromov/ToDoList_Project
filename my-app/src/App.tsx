@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
+import {Todolist, TaskType} from './Todolist';
 import {v1} from 'uuid';
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -9,7 +9,9 @@ export type TodolistsType = {
     title: string
     filter: FilterValuesType
 }
-
+export type TaskStateType = {
+    [key: string]: Array<TaskType>
+}
 function App() {
 
     // let [tasks, setTasks] = useState([
@@ -28,7 +30,7 @@ function App() {
         {id: todolistID2, title: 'What to buy', filter: 'all'}
     ]);
 
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<TaskStateType>({
         [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -42,7 +44,7 @@ function App() {
 
     function removeTask(id: string, todolistId: string) {
         let todolistTasks = tasks[todolistId];
-        tasks[todolistId] = todolistTasks.filter(t => t.id !== todolistId);
+        tasks[todolistId] = todolistTasks.filter(t => t.id !== id);
         setTasks({...tasks})
     }
 
@@ -71,6 +73,12 @@ function App() {
         }
     }
 
+    function removeTodolist(id: string){
+        setTodolists(todolists.filter(tl => tl.id !== id))
+        delete tasks[id]
+        setTasks({...tasks})
+    }
+
 
     return (
         <div className="App">
@@ -96,6 +104,7 @@ function App() {
                             addTask={addTask}
                             changeTaskStatus={changeStatus}
                             filter={tl.filter}
+                            removeTodolist={removeTodolist}
                         />
                     )
                 })
