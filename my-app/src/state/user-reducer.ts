@@ -33,3 +33,4 @@ export const userReducer = (state: StateType, action: ActionType): StateType => 
             throw new Error('I don\'t understand this type')
     }
 }
+//36.59
