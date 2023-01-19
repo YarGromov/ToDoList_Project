@@ -35,7 +35,9 @@ type ActionsType = RemoveTaskActionType | AddTaskActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
 
-const initialState: TasksStateType = {}
+const initialState: TasksStateType = {
+    count: []
+}
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
@@ -60,11 +62,10 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         }
         case 'CHANGE-TASK-STATUS': {
             let todolistTasks = state[action.todolistId];
-
             state[action.todolistId] = todolistTasks
                 .map(t => t.id === action.taskId
                     ? {...t, isDone: action.isDone}
-                    : t)
+                    : t);
             return ({...state});
         }
         case 'CHANGE-TASK-TITLE': {
@@ -72,7 +73,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             state[action.todolistId] = todolistTasks
                 .map(t => t.id === action.taskId
                     ? {...t, title: action.title}
-                    : t)
+                    : t);
             return ({...state});
         }
         case 'ADD-TODOLIST': {
