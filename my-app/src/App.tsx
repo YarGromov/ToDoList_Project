@@ -3,7 +3,8 @@ import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, Grid, Paper, Toolbar, Typography} from "@mui/material";
+import IconButton from "@mui/material/IconButton/IconButton";
 import {Menu} from "@mui/icons-material";
 
 
@@ -38,6 +39,7 @@ function App() {
             {id: v1(), title: "React Book", isDone: true}
         ]
     });
+
 
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
@@ -84,6 +86,7 @@ function App() {
         }
     }
 
+
     function changeFilter(value: FilterValuesType, todolistId: string) {
         let todolist = todolists.find(tl => tl.id === todolistId);
         if (todolist) {
@@ -126,7 +129,7 @@ function App() {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
+                        <Menu />
                     </IconButton>
                     <Typography variant="h6">
                         News

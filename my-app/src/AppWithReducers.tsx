@@ -3,7 +3,8 @@ import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, Grid, Paper, Toolbar, Typography} from "@mui/material";
+import IconButton from "@mui/material/IconButton/IconButton";
 import {Menu} from "@mui/icons-material";
 import {
     addTodolistAC,
@@ -11,8 +12,9 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC,
     todolistsReducer
-} from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
+} from "./state/todolists-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -30,12 +32,12 @@ function AppWithReducers() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let [todolists, dispatchToTodolists] = useReducer(todolistsReducer, [
+    let [todolists, dispatchToTodolistsReducer] = useReducer(todolistsReducer, [
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ])
 
-    let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
+    let [tasks, dispatchToTasksReducer] = useReducer(tasksReducer,{
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true}
@@ -46,46 +48,41 @@ function AppWithReducers() {
         ]
     });
 
+
     function removeTask(id: string, todolistId: string) {
-        const action = removeTaskAC(id, todolistId);
-        dispatchToTasks(action);
+        dispatchToTasksReducer(removeTaskAC(id, todolistId))
     }
 
     function addTask(title: string, todolistId: string) {
-        const action = addTaskAC(title, todolistId);
-        dispatchToTasks(action);
+        dispatchToTasksReducer(addTaskAC(title, todolistId))
     }
 
     function changeStatus(id: string, isDone: boolean, todolistId: string) {
-        const action = changeTaskStatusAC(id, isDone, todolistId);
-        dispatchToTasks(action);
+        dispatchToTasksReducer(changeTaskStatusAC(id,isDone,todolistId))
     }
 
     function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
-        const action = changeTaskTitleAC(id, newTitle, todolistId);
-        dispatchToTasks(action);
+        dispatchToTasksReducer(changeTaskTitleAC(id, newTitle, todolistId))
     }
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
-        const action = changeTodolistFilterAC(todolistId, value);
-        dispatchToTodolists(action);
+       dispatchToTodolistsReducer(changeTodolistFilterAC(value,todolistId))
     }
 
     function removeTodolist(id: string) {
-        const action = removeTodolistAC(id);
-        dispatchToTasks(action);
-        dispatchToTodolists(action);
+        const action = removeTodolistAC(id)
+        dispatchToTasksReducer(action)
+        dispatchToTodolistsReducer(action)
     }
 
     function changeTodolistTitle(id: string, title: string) {
-        const action = changeTodolistTitleAC(id, title);
-        dispatchToTodolists(action);
+        dispatchToTodolistsReducer(changeTodolistTitleAC(id, title))
     }
 
     function addTodolist(title: string) {
-        const action = addTodolistAC(title);
-        dispatchToTasks(action);
-        dispatchToTodolists(action);
+        const action = addTodolistAC(title)
+        dispatchToTasksReducer(action)
+        dispatchToTodolistsReducer(action)
     }
 
     return (
@@ -93,7 +90,7 @@ function AppWithReducers() {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
+                        <Menu />
                     </IconButton>
                     <Typography variant="h6">
                         News
