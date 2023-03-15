@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import {todolistsAPI} from "../api/todolists-api";
 
 export default {
     title: 'API'
@@ -15,7 +16,7 @@ const settings = {
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios.get("https://social-network.samuraijs.com/api/1.1/todo-lists", settings)
+        todolistsAPI.getTodolist()
             .then((res) => {
                 setState(res.data)
             })
@@ -27,10 +28,7 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios
-            .post("https://social-network.samuraijs.com/api/1.1/todo-lists",
-                {title: 'Yar todolist'},
-                settings)
+        todolistsAPI.createTodolist('BlaBla')
             .then((res) => {
                 setState(res.data)
             })
@@ -42,9 +40,8 @@ export const CreateTodolist = () => {
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios
-            .delete("https://social-network.samuraijs.com/api/1.1/todo-lists/d415e26f-c30b-43fe-aeb7-4c742b67ade6",
-                settings)
+        const todolistId = 'd415e26f-c30b-43fe-aeb7-4c742b67ade6'
+        todolistsAPI.deleteTodolist(todolistId)
             .then((res) => {
                 setState(res.data)
             })
@@ -56,10 +53,9 @@ export const DeleteTodolist = () => {
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios
-            .put("https://social-network.samuraijs.com/api/1.1/todo-lists/9b4f4a94-88fc-4eb7-8ad5-ed3ce816ab4c",
-                {title: 'YO-YO'},
-                settings)
+        const todolistId = '5c7e473d-14fb-4344-b562-b1d993044f3a'
+        const title = 'YO!!!'
+       todolistsAPI.updateTodolist(todolistId, title)
             .then((res) => {
                 setState(res.data)
             })
@@ -68,3 +64,4 @@ export const UpdateTodolistTitle = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
+//1,45
