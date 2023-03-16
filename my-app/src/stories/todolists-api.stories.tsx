@@ -64,4 +64,32 @@ export const UpdateTodolistTitle = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
-//1,45
+export const GetTasks = () => {
+
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+        const todolistId = '9e46bfdf-2fb4-4112-af0a-0d320418d784';
+        todolistsAPI.getTasks(todolistId)
+            .then((res) => {
+                setState(res.data)
+            })
+
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
+
+export const DeleteTasks = () => {
+
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+        const todolistId = '9e46bfdf-2fb4-4112-af0a-0d320418d784';
+        const taskId = '9adf46bfdf-2fb4-4112-af0a-0d320418d784';
+        todolistsAPI.deleteTasks(todolistId, taskId)
+            .then((res) => {
+                setState(res.data)
+            })
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
