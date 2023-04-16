@@ -1,6 +1,6 @@
-
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
+import {todolistAPI} from "../api/todolist-api";
 
 export default {
     title: 'API'
@@ -13,55 +13,52 @@ const settings = {
     }
 }
 
+
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists', settings)
-            .then((res)=>{
-                setState(res)
-            })
+        todolistAPI.getTodolists()
+            .then((res) => setState(res))
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
+
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios.post(
-            'https://social-network.samuraijs.com/api/1.1/todo-lists',
-            {title: 'NewTodolist123'},
-            settings
-        )
-            .then((res)=>{
+        const title = 'REDUX'
+        todolistAPI.createTodolist(title)
+            .then((res) => {
                 setState(res.data)
             })
     }, [])
 
     return <div>{JSON.stringify(state)}</div>
 }
+
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId = '7168ed5b-88d4-44a8-92d2-3a75c48fabd2'
-        axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`, settings)
-            .then((res)=>{
+        const todolistId = '160d4dfa-cca2-45b1-a31a-ff7d1a253bda'
+        todolistAPI.deleteTodolist(todolistId)
+            .then((res) => {
                 setState(res.data)
             })
     }, [])
 
     return <div>{JSON.stringify(state)}</div>
 }
+
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId = 'a4282967-4483-46bb-9968-70e833924006'
-        axios.put(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`,
-            {title: 'LOOOOOOL'},
-            settings)
-            .then((res)=>{
-                setState(res.data)
-            })
+        const todolistId = '5cb6e298-cb62-4d63-9023-2fb8914ce1b1'
+        const title = 'SOME NEW TITLE!!!!'
+        todolistAPI.updateTodolist(todolistId, title).then((res) => {
+            setState(res.data)
+        })
     }, [])
 
-    return <div>{JSON.stringify(state)}</div>
+    return <div> {JSON.stringify(state)}</div>
 }
 
