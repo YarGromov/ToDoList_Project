@@ -1,13 +1,4 @@
 import axios from 'axios'
-import {CreateTodolist} from "../stories/todolists-api.stories";
-
-const settings = {
-    withCredentials: true,
-    headers: {
-        // Не забываем заменить API-KEY на собственный
-        'API-KEY': '9c4ffa8f-2b09-41e8-a62a-7e4b43a79ee7',
-    },
-}
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -17,11 +8,17 @@ const instance = axios.create({
     },
 })
 
+type TodolistType = {
+    id: string
+    addedDate: string
+    order: number
+    title: string
+}
 
 export const todolistAPI = {
 
     getTodolists() {
-        return  instance.get('todo-lists')
+        return  instance.get<Array<TodolistType>>('todo-lists')
     },
 
     createTodolist(title: string) {
