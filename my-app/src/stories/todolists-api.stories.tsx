@@ -129,5 +129,45 @@ export const DeleteTask = () => {
             <button onClick={deleteTask}>Delete Task</button>
         </div>
     </div>
+}
 
+export const UpdateTask = () => {
+    const [state, setState] = useState<any>(null)
+    const [title, setTitle] = useState<string>('title 1')
+    const [description, setDescription] = useState<string>('description 1')
+    const [status, setStatus] = useState<number>(0)
+    const [priority, setPriority] = useState<number>(0)
+    const [startDate, setStartDate] = useState<string>('')
+    const [deadline, setDeadline] = useState<string>('')
+    const [todolistId, setTodolistId] = useState<string>('')
+    const [taskId, setTaskId] = useState<string>('')
+
+    const updateTask = () => {
+        todolistAPI.updateTask(todolistId, taskId, {
+            deadline: '',
+            description: description,
+            priority: priority,
+            startDate: startDate,
+            status: status,
+            title: title
+        })
+            .then((res) => {
+                setState(res.data)
+            })
+    }
+
+    return <div>
+        {JSON.stringify(state)}
+        <div>
+            <input placeholder={'Task Id'} value={taskId} onChange={(e)=>setTaskId(e.currentTarget.value)}/>
+            <input placeholder={'Todolist Id'} value={todolistId} onChange={(e)=>setTodolistId(e.currentTarget.value)}/>
+            <input placeholder={'Title'} value={title} onChange={(e)=>setTitle(e.currentTarget.value)}/>
+            <input placeholder={'Description'} value={description} onChange={(e)=>setDescription(e.currentTarget.value)}/>
+            <input placeholder={'Status'} value={status} type='number' onChange={(e)=>setStatus(+e.currentTarget.value)}/>
+            <input placeholder={'Priority'} value={priority} type='number' onChange={(e)=>setPriority(+e.currentTarget.value)}/>
+            <input placeholder={'Start Date'} value={startDate} onChange={(e)=>setStartDate(e.currentTarget.value)}/>
+            <input placeholder={'Deadline'} value={deadline} onChange={(e)=>setDeadline(e.currentTarget.value)}/>
+            <button onClick={updateTask}>Update Task</button>
+        </div>
+    </div>
 }
